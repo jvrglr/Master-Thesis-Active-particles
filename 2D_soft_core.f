@@ -41,12 +41,7 @@
      c      (x(i),y(i),x(j),y(j),xj,yj,L,dist,GEM,R,e,frcex,frcey,N,i,j)
             enddo
             angle(i)=angle(i)+noiser*dran_g()
-            !------------------------ Angle stays in [0,2*pi[
-            angle(i)=mod(angle(i),2.0*pi)
-            if (angle(i).lt.0) then
-              angle(i)=angle(i)+2.0*pi
-            endif
-            !-----------------------------
+            !-----------------------------UPDATE POSITION
             xnew(i)=x(i)+h*frcex(i)+noise*dran_g()+U*h*cos(angle(i))
             ynew(i)=y(i)+h*frcey(i)+noise*dran_g()+U*h*sin(angle(i))
           enddo
@@ -245,7 +240,7 @@
         double precision dran_u
 
         do i=1,N
-          angle(i)=dran_u()*2.0d0*pi
+          angle(i)=-pi+dran_u()*2.0d0*pi
         enddo
         return
       end subroutine
